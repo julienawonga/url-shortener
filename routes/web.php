@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Shortener;
-use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,11 +16,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    $user = User::find(1);
-//    $url = Shortener::find(1);
-//
-//    $user->urls()->attach($url);
-    dd($user->urls->toArray());
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
 Route::get('/dashboard', function () {
